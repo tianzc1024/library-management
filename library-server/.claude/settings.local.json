@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mysqladmin ping:*)",
+      "Bash(java:*)",
+      "Bash(mvn:*)",
+      "Bash(/usr/local/mysql/bin/mysql:*)",
+      "Bash(kill:*)",
+      "Bash(lsof:*)",
+      "Bash(ls:*)",
+      "Bash(curl:*)"
+    ]
+  }
+}
