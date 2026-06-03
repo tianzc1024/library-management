@@ -1,3 +1,8 @@
+# ==============================================
+# 测试环境配置
+# 由 @ActiveProfiles("test") 自动激活
+# ==============================================
+
 spring:
   datasource:
     driver-class-name: org.h2.Driver
@@ -11,6 +16,12 @@ spring:
     init:
       mode: always
       schema-locations: classpath:schema-test.sql
+
+jwt:
+  secret: test-jwt-secret-for-unit-tests-only
+
+cors:
+  allowed-origins: http://localhost:8080
 
 mybatis-plus:
   configuration:

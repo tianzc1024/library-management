@@ -1,0 +1,21 @@
+# ==============================================
+# 开发环境配置
+# 激活方式: spring.profiles.active=dev（默认）
+# ==============================================
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/library_db?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai
+    username: root
+    password: 123456789
+
+jwt:
+  secret: library-jwt-secret-key-2024-very-long-secret
+
+cors:
+  allowed-origins: http://localhost:8080,http://localhost:8081,http://localhost:3000
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
