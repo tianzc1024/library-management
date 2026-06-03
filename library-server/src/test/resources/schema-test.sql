@@ -17,6 +17,7 @@ CREATE TABLE IF NOT EXISTS tb_user (
     phone VARCHAR(20),
     email VARCHAR(100),
     address VARCHAR(200),
+    password VARCHAR(200),
     create_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     update_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );

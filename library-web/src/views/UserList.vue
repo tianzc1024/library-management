@@ -35,6 +35,9 @@
         <el-form-item label="地址">
           <el-input v-model="form.address" />
         </el-form-item>
+        <el-form-item label="登录密码">
+          <el-input v-model="form.password" type="password" show-password :placeholder="isEdit ? '留空则不修改密码' : '请输入初始密码'" />
+        </el-form-item>
       </el-form>
       <span slot="footer">
         <el-button @click="dialogVisible = false">取消</el-button>
@@ -55,7 +58,7 @@ export default {
       dialogVisible: false,
       dialogTitle: '添加人员',
       isEdit: false,
-      form: { name: '', phone: '', email: '', address: '' }
+      form: { name: '', phone: '', email: '', address: '', password: '' }
     }
   },
   created() {
@@ -69,13 +72,13 @@ export default {
     openAddDialog() {
       this.dialogTitle = '添加人员'
       this.isEdit = false
-      this.form = { name: '', phone: '', email: '', address: '' }
+      this.form = { name: '', phone: '', email: '', address: '', password: '' }
       this.dialogVisible = true
     },
     openEditDialog(row) {
       this.dialogTitle = '编辑人员'
       this.isEdit = true
-      this.form = { ...row }
+      this.form = { id: row.id, name: row.name, phone: row.phone, email: row.email, address: row.address, password: '' }
       this.dialogVisible = true
     },
     async handleSave() {

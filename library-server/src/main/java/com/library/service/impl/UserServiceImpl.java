@@ -1,5 +1,6 @@
 package com.library.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.library.entity.User;
 import com.library.mapper.UserMapper;
@@ -22,5 +23,12 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Override
     public boolean deleteUser(Long id) {
         return removeById(id);
+    }
+
+    @Override
+    public User findByPhone(String phone) {
+        QueryWrapper<User> wrapper = new QueryWrapper<>();
+        wrapper.eq("phone", phone);
+        return getOne(wrapper);
     }
 }

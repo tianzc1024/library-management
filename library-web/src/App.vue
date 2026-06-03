@@ -1,8 +1,28 @@
 <template>
   <div id="app">
     <!-- 登录页面不显示侧边栏 -->
-    <template v-if="$route.path === '/login'">
+    <template v-if="$route.path === '/login' || $route.path === '/borrower/login'">
       <router-view />
+    </template>
+    <!-- C端借阅者页面：简洁顶栏，无侧边栏 -->
+    <template v-else-if="userType === 'BORROWER'">
+      <el-container style="min-height: 100vh; flex-direction: column">
+        <el-header style="background: linear-gradient(135deg, #667eea, #764ba2); color: #fff; display: flex; align-items: center; justify-content: space-between; height: 60px">
+          <h3 style="margin: 0; cursor: pointer" @click="$router.push('/borrower/my-records')">
+            图书借阅系统
+          </h3>
+          <div class="user-info">
+            <span class="borrower-name">{{ borrowerName }}</span>
+            <span class="borrower-phone">{{ phone }}</span>
+            <el-button type="text" style="color: #fff; margin-left: 12px" @click="borrowerLogout">
+              退出
+            </el-button>
+          </div>
+        </el-header>
+        <el-main style="background: #f0f2f5; flex: 1">
+          <router-view />
+        </el-main>
+      </el-container>
     </template>
     <template v-else>
       <el-container style="min-height: 100vh">
@@ -71,7 +91,10 @@ export default {
     return {
       username: localStorage.getItem('username') || '',
       realName: localStorage.getItem('realName') || '',
-      role: localStorage.getItem('role') || ''
+      role: localStorage.getItem('role') || '',
+      userType: localStorage.getItem('userType') || '',
+      phone: localStorage.getItem('phone') || '',
+      borrowerName: localStorage.getItem('name') || ''
     }
   },
   methods: {
@@ -91,6 +114,21 @@ export default {
           this.$message.success('已退出登录')
         }).catch(() => {})
       }
+    },
+    borrowerLogout() {
+      this.$confirm('确定要退出登录吗？', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        localStorage.removeItem('token')
+        localStorage.removeItem('phone')
+        localStorage.removeItem('name')
+        localStorage.removeItem('userId')
+        localStorage.removeItem('userType')
+        this.$router.push('/borrower/login')
+        this.$message.success('已退出登录')
+      }).catch(() => {})
     }
   }
 }
@@ -122,5 +160,13 @@ body { font-family: 'Helvetica Neue', Helvetica, 'PingFang SC', 'Microsoft YaHei
   cursor: pointer;
   color: #409EFF;
   font-size: 14px;
+}
+.borrower-name {
+  font-size: 14px;
+  margin-right: 8px;
+}
+.borrower-phone {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.85);
 }
 </style>

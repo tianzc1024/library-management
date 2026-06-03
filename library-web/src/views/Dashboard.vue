@@ -82,7 +82,7 @@
 </template>
 
 <script>
-import { getReminders, returnBook } from '@/api/borrow'
+import { getReminders, returnBook, getBorrowStats } from '@/api/borrow'
 import { getBookList } from '@/api/book'
 import { getUserList } from '@/api/user'
 
@@ -105,12 +105,15 @@ export default {
   methods: {
     async loadStats() {
       try {
-        const [bookRes, userRes] = await Promise.all([
+        const [bookRes, userRes, statsRes] = await Promise.all([
           getBookList(),
-          getUserList()
+          getUserList(),
+          getBorrowStats()
         ])
         this.stats.totalBooks = (bookRes.data.data || []).length
         this.stats.totalUsers = (userRes.data.data || []).length
+        const statsData = statsRes.data.data || {}
+        this.stats.borrowingCount = statsData.borrowingCount || 0
       } catch (e) {
         console.error('加载统计数据失败', e)
       }
@@ -119,7 +122,6 @@ export default {
       try {
         const res = await getReminders()
         this.reminders = res.data.data || []
-        this.stats.borrowingCount = this.reminders.length
       } catch (e) {
         console.error('加载提醒数据失败', e)
       }

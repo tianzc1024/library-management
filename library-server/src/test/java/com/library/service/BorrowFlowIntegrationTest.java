@@ -103,6 +103,26 @@ class BorrowFlowIntegrationTest {
             return 1;
         }).when(bookMapper).deleteById(anyLong());
 
+        doAnswer(inv -> {
+            Long id = inv.getArgument(0);
+            Book book = bookStore.get(id);
+            if (book != null && book.getAvailableCount() > 0) {
+                book.setAvailableCount(book.getAvailableCount() - 1);
+                return 1;
+            }
+            return 0;
+        }).when(bookMapper).decrementAvailableCount(anyLong());
+
+        doAnswer(inv -> {
+            Long id = inv.getArgument(0);
+            Book book = bookStore.get(id);
+            if (book != null) {
+                book.setAvailableCount(book.getAvailableCount() + 1);
+                return 1;
+            }
+            return 0;
+        }).when(bookMapper).incrementAvailableCount(anyLong());
+
         // -------- UserMapper --------
         doAnswer(inv -> {
             User user = inv.getArgument(0);

@@ -17,3 +17,7 @@ export function getBorrowList() {
 export function getReminders() {
   return request.get(`${BASE}/reminders`)
 }
+
+export function getBorrowStats() {
+  return request.get(`${BASE}/stats`)
+}

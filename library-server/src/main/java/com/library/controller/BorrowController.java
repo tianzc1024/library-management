@@ -72,14 +72,32 @@ public class BorrowController {
     }
 
     /**
-     * 归还提醒列表（即将到期 + 已逾期）
+     * 统计信息（当前借阅中数量）
+     */
+    @GetMapping("/stats")
+    public Map<String, Object> stats() {
+        Map<String, Object> result = new HashMap<>();
+        try {
+            long borrowingCount = borrowService.countBorrowing();
+            result.put("code", 200);
+            result.put("data", new HashMap<String, Object>() {{
+                put("borrowingCount", borrowingCount);
+            }});
+        } catch (Exception e) {
+            result.put("code", 500);
+            result.put("message", e.getMessage());
+        }
+        return result;
+    }
+
+    /**
+     * 归还提醒列表（即将到期 + 已逾期）。
+     * 注意：只做查询不产生副作用；逾期状态的实际更新仅由定时任务执行。
      */
     @GetMapping("/reminders")
     public Map<String, Object> reminders() {
         Map<String, Object> result = new HashMap<>();
         try {
-            // 先更新逾期状态
-            reminderService.updateOverdueStatus();
             List<BorrowDTO> list = reminderService.getReminderList();
             result.put("code", 200);
             result.put("data", list);

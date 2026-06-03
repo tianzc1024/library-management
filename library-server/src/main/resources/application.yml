@@ -6,16 +6,18 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/library_db?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai
     username: root
-    password: 123456789
+    password: ${DB_PASSWORD:123456789}
 
 jwt:
-  secret: library-jwt-secret-key-2024-very-long-secret
+  secret: ${JWT_SECRET:library-jwt-secret-key-2024-very-long-secret}
   expiration: 86400000
+
+cors:
+  allowed-origins: ${CORS_ORIGINS:http://localhost:8080,http://localhost:3000}
 
 mybatis-plus:
   configuration:
     map-underscore-to-camel-case: true
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
   global-config:
     db-config:
       id-type: auto

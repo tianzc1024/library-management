@@ -7,4 +7,5 @@ public interface UserService extends IService<User> {
     boolean addUser(User user);
     boolean updateUser(User user);
     boolean deleteUser(Long id);
+    User findByPhone(String phone);
 }

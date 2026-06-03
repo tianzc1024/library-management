@@ -30,11 +30,20 @@ request.interceptors.response.use(
     if (error.response) {
       const status = error.response.status
       if (status === 401) {
+        const userType = localStorage.getItem('userType')
         localStorage.removeItem('token')
         localStorage.removeItem('username')
         localStorage.removeItem('realName')
         localStorage.removeItem('role')
-        router.push('/login')
+        localStorage.removeItem('phone')
+        localStorage.removeItem('name')
+        localStorage.removeItem('userId')
+        localStorage.removeItem('userType')
+        if (userType === 'BORROWER') {
+          router.push('/borrower/login')
+        } else {
+          router.push('/login')
+        }
         Message.warning('登录已过期，请重新登录')
       } else {
         Message.error(error.response.data.message || '请求失败')

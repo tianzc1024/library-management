@@ -1,0 +1,10 @@
+com/library/service/BorrowFlowIntegrationTest.class
+com/library/controller/BorrowControllerTest$Reminders.class
+com/library/service/BorrowServiceTest.class
+com/library/controller/BorrowControllerTest$ListBorrows.class
+com/library/controller/BorrowControllerTest$ReturnBook.class
+com/library/controller/BorrowControllerTest$BorrowBook.class
+com/library/service/BorrowServiceTest$ReturnBook.class
+com/library/service/BorrowServiceTest$BorrowBook.class
+com/library/service/BorrowServiceTest$Query.class
+com/library/controller/BorrowControllerTest.class

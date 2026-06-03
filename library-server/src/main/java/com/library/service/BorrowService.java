@@ -15,4 +15,8 @@ public interface BorrowService extends IService<BorrowRecord> {
     List<BorrowDTO> listWithDetails();
     /** 查询即将到期的记录 */
     List<BorrowDTO> getUpcomingDueRecords();
+    /** 查询指定用户的借阅记录 */
+    List<BorrowDTO> getRecordsByUserId(Long userId);
+    /** 统计当前借阅中的数量 */
+    long countBorrowing();
 }
